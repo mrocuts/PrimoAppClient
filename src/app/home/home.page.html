@@ -1,20 +1,19 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+<ion-content [fullscreen]="true" color="primary">
+  <div class="img-container">
+    <img src="assets/img/logoprimoblack.png"/>
+    <p style="text-align: center;">El vinculo que nos une...</p>
+  </div>
   <div id="container">
-    <strong>Hola mundo</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-item color="ligth">
+      <ion-label position="floating">Usuario</ion-label>
+      <ion-input type="text" #username (ionBlur)="validateUsername(username.value)"></ion-input>
+    </ion-item>
+    <ion-item color="ligth">
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" #password></ion-input>
+    </ion-item>
+    <ion-button color="medium" expand="block" (click)="login(username.value, password.value)">INICIAR SESIÓN</ion-button>
+    <p><ion-router-link color="medium" href="#" style="font-size: 10px; font:italic;">¿No tienes cuenta? Crea una ahora!</ion-router-link></p>
+    <p><ion-router-link color="medium" href="#" style="font-size: 10px; font:italic;">¿Haz olvidado tu contraseña?</ion-router-link></p>
   </div>
 </ion-content>
