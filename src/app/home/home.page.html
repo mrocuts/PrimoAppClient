@@ -1,32 +1,19 @@
-<!-- <ion-header [translucent]="true" color="primary">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content [fullscreen]="true" color="primary">
   <div class="img-container">
-
-    <ion-img src="assets/img/logoprimoblack.png">
-    </ion-img>
+    <img src="assets/img/logoprimoblack.png"/>
     <p style="text-align: center;">El vinculo que nos une...</p>
   </div>
-   <div id="container">
-    <ion-item >
-      <ion-label color="primary" position="floating">Usuario</ion-label>
-      <ion-input></ion-input>
+  <div id="container">
+    <ion-item color="ligth">
+      <ion-label position="floating">Usuario</ion-label>
+      <ion-input type="text" #username (ionBlur)="validateUsername(username.value)"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label color="primary" position="floating">Contraseña</ion-label>
-      <ion-input type="password"></ion-input>
+    <ion-item color="ligth">
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" #password></ion-input>
     </ion-item>
- 
-    <ion-button color="secondary">INICIAR SESIÓN</ion-button>
-    <p><ion-router-link color="primary" href="#" style="font-size: 14px; font:italic;">¿Haz olvidado tu contraseña?</ion-router-link></p>
-    <p>
-      <ion-router-link  color="primary"  href="#" style="font-size: 16px; font:italic;">¿No tienes cuenta? Crea una ahora!</ion-router-link>
-    </p>
-   </div>
+    <ion-button color="medium" expand="block" (click)="login(username.value, password.value)">INICIAR SESIÓN</ion-button>
+    <p><ion-router-link color="medium" href="#" style="font-size: 10px; font:italic;">¿No tienes cuenta? Crea una ahora!</ion-router-link></p>
+    <p><ion-router-link color="medium" href="#" style="font-size: 10px; font:italic;">¿Haz olvidado tu contraseña?</ion-router-link></p>
+  </div>
 </ion-content>
