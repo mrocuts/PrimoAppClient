@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PrimoURL } from 'src/app/constants/primo-url';
 import { User } from 'src/app/models/user';
+import { map, catchError } from 'rxjs/operators';
 
 /**
  * Esta clase maneja todos las operaciones que se puede realizar para 
@@ -37,7 +38,7 @@ export class UserService {
     this.urlInk=this.primourl.PR_LOGIN_URL;
     this.urlInk=this.urlInk.replace('username', username);
     this.urlInk=this.urlInk.replace('password', password);
-    this.urlInk=this.urlInk.replace('usrtype', '2');
+    this.urlInk=this.urlInk.replace('usrtype', '1');
     console.log("URL WS: "+this.urlInk);
     return new Promise(resolve => {
       this.client.get(this.urlInk).subscribe(data => {
@@ -48,5 +49,12 @@ export class UserService {
         console.log(err);
       });
     });
+  }
+
+  newUser(newUser : User){
+    this.urlInk = this.primourl.PR_NEWUSER_URL;
+    console.log(newUser);
+    console.log(this.urlInk);
+    return this.client.post(this.urlInk, newUser);
   }
 }

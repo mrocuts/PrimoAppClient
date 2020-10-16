@@ -13,7 +13,7 @@
       <ion-input type="password" #password></ion-input>
     </ion-item>
     <ion-button color="medium" expand="block" (click)="login(username.value, password.value)">INICIAR SESIÓN</ion-button>
-    <p><ion-router-link color="medium" href="#" style="font-size: 10px; font:italic;">¿No tienes cuenta? Crea una ahora!</ion-router-link></p>
-    <p><ion-router-link color="medium" href="#" style="font-size: 10px; font:italic;">¿Haz olvidado tu contraseña?</ion-router-link></p>
+    <p><a routerLink="/register" color="medium" href="#" style="font-size: 10px; font:italic;">¿No tienes cuenta? Crea una ahora!</a></p>
+    <p><a routerLink color="medium" href="#" style="font-size: 10px; font:italic;">¿Haz olvidado tu contraseña?</a></p>
   </div>
 </ion-content>
