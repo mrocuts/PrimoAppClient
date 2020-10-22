@@ -47,9 +47,6 @@ export class UserService {
   }
 
   newUser(newUser : User){
-    this.urlInk = this.primourl.PR_NEWUSER_URL;
-    console.log(newUser);
-    console.log(this.urlInk);
-    return this.client.post(this.urlInk, newUser);
+    return this.client.post(this.primourl.PR_NEWUSER_URL, newUser);
   }
 }

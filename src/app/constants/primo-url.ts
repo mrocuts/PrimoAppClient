@@ -22,7 +22,7 @@ export class PrimoURL {
      */ 
 
 
-    public PR_NEWUSER_URL : string = `${this.restServerAccess}usuario`;
+    public PR_NEWUSER_URL : string = `${this.restServerAccess}PrimoApp/usuario`;
 
     public PR_LOGIN_URL:string=this.restServerAccess+'PrimoApp/login/username/password/usrtype';
 
