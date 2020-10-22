@@ -3,10 +3,10 @@
  */
 export class User {
     /** Atributos de Clase **/
-    idUsuario:bigint;
-    strUsuario:string;
+    idUsuario:number;
+    strUsuario :string;
     strPassword: string;
-    intNumeroIntentos:bigint;
-    bitActivo:boolean;
-    intTipoUsuario:bigint;
+    intNumIntentos:number;
+    bitActivo:number;
+    intTipoUsuario:number;
 }
