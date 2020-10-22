@@ -2,7 +2,7 @@
  * Imports
  */
 import { Injectable } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -16,50 +16,53 @@ export class UIAlertService {
    * Construye una nueva instancia de este servicio.
    * @param alertControler un controlador de alertas.
    */
-  constructor(public alertControler : AlertController) { }
+  constructor(public toastController: ToastController) { }
 
   /**
    * Construye y muestra un mensaje de alerta de tipo informativo.
    * @param message Mensaje a mostrar.
-   * @param title Titulo de la ventana.
    */
-  async putMsgInfo(message: string, title:string){
-    const alert = await this.alertControler.create({
+  async putMsgInfo(message: string){
+    const toast = await this.toastController.create({
+      animated:true,
       header: 'Información',
-      subHeader: title,
       message: message,
-      buttons : ['Aceptar']
+      duration: 2000,
+      position:"top",
+      color:"medium"
     })
-    await alert.present();
+    await toast.present();
   }
 
   /**
    * Construye y muestra un mensaje de alerta de tipo error.
    * @param message Mensaje a mostrar.
-   * @param title Titulo de la ventana.
    */
-  async putMsgError(message: string, title:string){
-    const alert = await this.alertControler.create({
+  async putMsgError(message: string){
+    const toast = await this.toastController.create({
+      animated:true,
       header: 'Error',
-      subHeader: title,
       message: message,
-      buttons : ['Aceptar']
+      duration: 2000,
+      position:"top",
+      color:"warning"
     })
-    await alert.present();
+    await toast.present();
   }
 
   /**
    * Construye y muestra un mensaje de alerta de tipo fatal.
    * @param message Mensaje a mostrar.
-   * @param title Titulo de la ventana.
    */
-  async putMsgFatal(message: string, title:string){
-    const alert = await this.alertControler.create({
+  async putMsgFatal(message: string){
+    const toast = await this.toastController.create({
+      animated:true,
       header: 'FATAL',
-      subHeader: title,
       message: message,
-      buttons : ['Aceptar']
+      duration: 2000,
+      position:"top",
+      color:"danger"
     })
-    await alert.present();
+    await toast.present();
   }
 }

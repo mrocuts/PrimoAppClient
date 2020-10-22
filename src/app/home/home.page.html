@@ -4,13 +4,13 @@
     <p style="text-align: center;">El vinculo que nos une...</p>
   </div>
   <div id="container">
-    <ion-item color="ligth">
+    <ion-item #usernameItem color="ligth">
       <ion-label position="floating">Usuario</ion-label>
-      <ion-input type="text" #username (ionBlur)="validateUsername(username.value)"></ion-input>
+      <ion-input #usernameInput type="text" #username (ionBlur)="validateUsername(username.value)"></ion-input>
     </ion-item>
-    <ion-item color="ligth">
+    <ion-item #passwordItem color="ligth">
       <ion-label position="floating">Contraseña</ion-label>
-      <ion-input type="password" #password></ion-input>
+      <ion-input #passwordInput type="password" #password></ion-input>
     </ion-item>
     <ion-button color="medium" expand="block" (click)="login(username.value, password.value)">INICIAR SESIÓN</ion-button>
     <p><a routerLink="/register" color="medium" href="#" style="font-size: 10px; font:italic;">¿No tienes cuenta? Crea una ahora!</a></p>
