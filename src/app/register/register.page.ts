@@ -67,27 +67,27 @@ export class RegisterPage implements OnInit {
 
     const result = validaPassword(_passwordGroup);
     if(result !== null){
-      this.alert.putMsgError( 'La confirmación del password no concuerda con la ingresada', 'Intenta nuevamente' );
+      this.alert.putMsgError( 'La confirmación del password no concuerda con la ingresada');
       return;
     }
     if(!this.errorControl.terminosControl.value){
-      this.alert.putMsgError( 'Debes leer y aceptar los terminos y condiciones para continuar', 'Intenta nuevamente' );
+      this.alert.putMsgError( 'Debes leer y aceptar los terminos y condiciones para continuar');
       return;
     }
   
 
     this.userService.newUser(this.newUser).subscribe(data => {
       if(!data['succes']){
-        this.alert.putMsgError( data['response'], 'Intenta nuevamente' );
+        this.alert.putMsgError( data['response'] );
       return;  
       }
     },
     err => {
-      this.alert.putMsgError( err.response, 'Intenta nuevamente' );
+      this.alert.putMsgError( err.response);
       return;
     },
     () => {
-      this.alert.putMsgInfo('El usuario se creo con exito!', 'Completado');
+      this.alert.putMsgInfo('El usuario se creo con exito!');
       this.router.navigate(['home']);
     });
 
