@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { PrimoURL } from 'src/app/constants/primo-url';
 import { User } from 'src/app/models/user';
 import { map, catchError } from 'rxjs/operators';
+import { Primoconst } from 'src/app/constants/primoconst';
+
 
 /**
  * Esta clase maneja todos las operaciones que se puede realizar para 
@@ -17,9 +19,8 @@ import { map, catchError } from 'rxjs/operators';
 export class UserService {
 
   /** Atributos de Método **/
-  urlInk:string='';
   primourl:PrimoURL;
-  public user: User;
+  constants: Primoconst;
 
   /**
    * Inicializa los datos del Servicio
@@ -27,6 +28,7 @@ export class UserService {
    */
   constructor(private client: HttpClient) { 
     this.primourl=new PrimoURL();
+    this.constants = new Primoconst();
   }
 
   /**
@@ -35,26 +37,16 @@ export class UserService {
    * @param password contraseña ingresada por el usuario
    */
   getUser(username:string, password:string){
-    this.urlInk=this.primourl.PR_LOGIN_URL;
-    this.urlInk=this.urlInk.replace('username', username);
-    this.urlInk=this.urlInk.replace('password', password);
-    this.urlInk=this.urlInk.replace('usrtype', '2');
-    console.log("URL WS: "+this.urlInk);
-    return new Promise(resolve => {
-      this.client.get(this.urlInk).subscribe(data => {
-        this.user = Object.assign(new User(), data);
-        resolve(data);
-        console.log(this.user.strUsuario);
-      }, err => {
-        console.log(err);
-      });
-    });
+    var URL=this.primourl.PR_LOGIN_URL;
+    URL=URL.replace('username', username);
+    URL=URL.replace('password', password);
+    URL=URL.replace('usrtype', ''+this.constants.USER_PUBLIC);
+    alert(URL);
+    console.log("URL WS: "+URL);
+    return this.client.get<User>(URL);
   }
 
   newUser(newUser : User){
-    this.urlInk = this.primourl.PR_NEWUSER_URL;
-    console.log(newUser);
-    console.log(this.urlInk);
-    return this.client.post(this.urlInk, newUser);
+    return this.client.post(this.primourl.PR_NEWUSER_URL, newUser);
   }
 }

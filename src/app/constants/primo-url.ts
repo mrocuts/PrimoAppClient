@@ -17,12 +17,12 @@ export class PrimoURL {
      * 2. Password por la contraseña ingresada por el usuario.
      * 3. Tipo 1 para negocios, 0 para usuarios.
      */ 
-    public PR_LOGIN_URL:string= this.restServerAccess+'login/username/password/usrtype';
 
-    public PR_NEWUSER_URL : string = `${this.restServerAccess}usuario`;
 
     public PR_APIBASE_URL : string = `${this.restServerAccess}`;
 
+    public PR_NEWUSER_URL : string = `${this.restServerAccess}usuario`;
 
+    public PR_LOGIN_URL:string=this.restServerAccess+'PrimoApp/login/username/password/usrtype';
 
 }
