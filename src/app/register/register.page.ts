@@ -62,7 +62,7 @@ export class RegisterPage implements OnInit {
       strUsuario : this.registroForm.get('emailControl').value,
       intNumIntentos : 0,
       bitActivo: 1,
-      intTipoUsuario : 1
+      intTipoUsuario : 2
     }
 
     const result = validaPassword(_passwordGroup);

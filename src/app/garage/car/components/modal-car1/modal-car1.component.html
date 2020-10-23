@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Paso 1</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button color="primary" (click)="OnClose()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-text-center ion-padding">
+      <ion-col size="12">
+        <ion-text color="primary">
+          <h1>¿Que tipo de auto tienes?</h1>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-text-center">
+      <ion-col size="6">
+        <ion-card (click)="setTipoAuto('1')">
+          <ion-hearder>
+            <ion-icon name="car-sport-outline" class="iconModal" solt="start"></ion-icon>
+          </ion-hearder>
+          <ion-card-content>
+            <ion-label>Carro</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card (click)="setTipoAuto('2')">
+          <ion-hearder>
+            <ion-icon name="car" class="iconModal"></ion-icon>
+          </ion-hearder>
+          <ion-card-content>
+            <ion-label>Camioneta</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card (click)="setTipoAuto('3')">
+          <ion-hearder>
+            <ion-icon name="bicycle" class="iconModal"></ion-icon>
+          </ion-hearder>
+          <ion-card-content>
+            <ion-label>Motocicleta</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card (click)="setTipoAuto('4')">
+          <ion-hearder>
+            <ion-icon name="bicycle-outline" class="iconModal"></ion-icon>
+          </ion-hearder>
+          <ion-card-content>
+            <ion-label>Bicicleta</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

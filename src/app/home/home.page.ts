@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { UIAlertService } from '../UITools/uialert.service';
 import { UserService } from '../services/user/user.service';
 import { User } from '../models/user';
+import { GarajeService } from '../services/garaje/garaje.service';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,8 @@ export class HomePage {
    */
   constructor(public alert : UIAlertService,
               public router: Router,
-              public userService: UserService) {}
+              public userService: UserService,
+              public garajeService : GarajeService) {}
             
   /**
    * Método que valida el campo de Nombre de Usuario
@@ -41,12 +43,21 @@ export class HomePage {
    * @param username 
    * @param password 
    */
-  getUser(username:string, password:string) {
-    this.userService.getUser(username, password);
-    this.user = this.userService.user;
-    if(!this.userService.user){
-      console.log("Usuario obtenido: "+this.userService.user);
-    }
+  async getUser(username:string, password:string) {
+    // this.userService.getUser(username, password);
+    // this.user = this.userService.user;
+    // if(!this.userService.user){
+    //   console.log("Usuario obtenido: "+this.userService.user);
+    // }
+//borrar
+await this.userService.getUser(username,password).then(data =>{
+  this.user = Object.assign(new User, data);
+  console.log(this.user);
+  if(!this.user){
+      console.log(`Usuario obtenido: ${this.user}`);
+  }
+})
+
   }
   
   /**
@@ -54,16 +65,35 @@ export class HomePage {
    * @param username 
    * @param password 
    */
-  login(username : string, password : string){
+  async login(username : string, password : string){
     if(username.length==0 || password.length==0){
       this.alert.putMsgError('Se requiere un valor', 'El usuario y/o contraseña no pueden estar vacios. Ingrese su usario y/o contraseña para contrinuar');
     }else{
-      this.getUser(username, password);
+      await this.getUser(username, password);
+      console.log(this.user);
       if(!this.user){
         this.alert.putMsgError("El usuario y/o contraseña no son válidos. Verifique e intente nuevamente", "Error al inicar sesión");
       }else{
+        if (this) {
+          
+        }
         this.router.navigate(['/dashboard']);
       }
     }
+  }
+
+  getGarajeUsuario(){
+    this.garajeService.getGarajeUsuario(3).subscribe(data => {
+      console.log(data);
+    },
+    err => console.log(err));
+  }
+
+  getVehiculo(){
+    this.garajeService.getVehiculo(1).subscribe(data => {
+      console.log(data);
+    },
+    err => console.log('Se presento un error',err),
+    () => console.log('Esta vacio'))
   }
 }

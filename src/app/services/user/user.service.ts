@@ -38,7 +38,7 @@ export class UserService {
     this.urlInk=this.primourl.PR_LOGIN_URL;
     this.urlInk=this.urlInk.replace('username', username);
     this.urlInk=this.urlInk.replace('password', password);
-    this.urlInk=this.urlInk.replace('usrtype', '1');
+    this.urlInk=this.urlInk.replace('usrtype', '2');
     console.log("URL WS: "+this.urlInk);
     return new Promise(resolve => {
       this.client.get(this.urlInk).subscribe(data => {

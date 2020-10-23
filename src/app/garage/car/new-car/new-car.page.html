@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Nuevo Vehiculo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-text-center ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <p>Bienvenido a Primo la herramienta que te ayudara a administra y cuidar tus vehiculos.</p>
+        <p>¿Quiere iniciar registrando tu primer vehiculo?</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button color="primary" (click)="newCar()">Iniciar Registro</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-padding">
+      <ion-col>
+        <ion-list>
+          <ion-item>
+            <ion-label>Tipo Vehiculo :</ion-label>
+            <ion-text>{{ _tipoVehiculo }}</ion-text>
+            <!-- <ion-input type="text">{{ _tipoVehiculo }}</ion-input> -->
+          </ion-item>
+          <ion-item>
+            <ion-label>Marca :</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Modelo :</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Color :</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label># Puertas :</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Transmision:</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Año :</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Placa :</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  </div>
+</ion-content>
