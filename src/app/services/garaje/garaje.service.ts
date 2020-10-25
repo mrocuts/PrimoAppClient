@@ -55,11 +55,6 @@ export class GarajeService {
   }
 
   getModeloByMarca(idMarca : number){
-    return this.client.get(`${this.primourl.PR_APIBASE_URL}modelo/${idMarca}`).pipe(
-      map((marca:any) => ({ idMarca : marca.idMarca, 
-                            idTipovehiuclo : marca.idTipoVehiculo,
-                            strDescripcion : marca.strDescripciono,
-                            bitActivo : marca.bitActivo}))
-    );
+    return this.client.get(`${this.primourl.PR_APIBASE_URL}modelo/${idMarca}`);
   }
 }

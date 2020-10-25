@@ -41,7 +41,7 @@ export class ModalCar1Component implements OnInit {
       }
     }
     this.modalCtrl.dismiss({'id': id, 'valor': valor},"sucess");
-    console.log(id);
+ 
   }
 
 }

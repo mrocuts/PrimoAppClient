@@ -8,3 +8,57 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-text-center">
+      <ion-col size="12">
+        <ion-text color="primary">
+          <h1>¿Cuentanos más acerca de tu auto?</h1>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-card [color]="marcaSelect? 'primary': ''">
+    <ion-card-content>
+      <ion-list>
+        <ion-item [ngStyle]="{'backgroud-color': marcaSelect ? 'blue': 'white'}">
+          <ion-label>
+            Marca
+          </ion-label>
+          <ion-select name="sltMarca" (ionChange)="getValue($event)">
+              <ion-select-option *ngFor="let opcion of dataLoading" [value] = "opcion.idMarca">{{opcion.strDescripcion}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item [ngStyle]="{'backgroud-color': marcaSelect === true ? 'blue': 'white'}">
+          <ion-label>
+            Modelo
+          </ion-label>
+          <ion-select [disabled]="disabledModelo" name="sltModelo" (ionChange)="getValue($event)">
+            <ion-select-option *ngFor="let modelo of dataModelos" [value] = "modelo.idModelo">
+              {{ modelo.strDescripcion }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          Transmision
+        </ion-label>
+        <ion-select name="sltTransmision" (ionChange)="getValue($event)">
+          <ion-select-option value="Manual">Manual</ion-select-option>
+          <ion-select-option value="Automatica">Automatica</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
