@@ -4,7 +4,7 @@ export class Vehiculo {
         public idTipoVehiculo : number,
         public idModelo : number,
         public idGaraje : number,
-        public intanio : number,
+        public intAnio : number,
         public strObservacion : string,
         public strSerial : string,
         public strColor : string,

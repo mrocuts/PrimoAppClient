@@ -1,11 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PrimoURL } from 'src/app/constants/primo-url';
 import { Garaje } from 'src/app/models/garaje';
 import { Marca } from 'src/app/models/marca';
 import { Vehiculo } from 'src/app/models/vehiculo';
 
-import { map, tap } from 'rxjs/operators';
+import { catchError, defaultIfEmpty, isEmpty, map, tap } from 'rxjs/operators';
+import { of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,19 +27,16 @@ export class GarajeService {
   getGarajeUsuario(idUsuario : number)
   {
     this.urlLink=this.primourl.PR_APIBASE_URL;
-    return this.client.get(`${this.urlLink}/garaje/${idUsuario}`).pipe(
-      tap(data => console.log(data)),
+    return this.client.get(`${this.urlLink}garaje/${idUsuario}`).pipe(
       map(data => {
-        console.log(`${this.urlLink}/vehiculo/${data['idGaraje']}`);
-        return this.client.get(`${this.urlLink}/vehiculo/${data['idGaraje']}`).pipe(
-          tap(data => console.log(data)),
-          map((data) => {
-              console.log(data);
-          })
-        );
-      })
-    );
-  }
+        console.log(`el id garaje es ${data['idGaraje']}`);
+        return this.getVehiculo(data['idGaraje']).subscribe(data => {
+          if(data === []){
+            console.log(data); 
+          }
+        });
+  }))
+}
   
   getTipoVehiculo(){
     return this.client.get(`${this.primourl.PR_APIBASE_URL}/tipoVehiculo`);
@@ -46,7 +44,7 @@ export class GarajeService {
 
   getVehiculo(idGaraje : number){
     this.urlLink=this.primourl.PR_APIBASE_URL;
-    return this.client.get(`${this.urlLink}/vehiculo/${idGaraje}`);
+    return this.client.get(`${this.urlLink}vehiculo/${idGaraje}`);
   }
 
   getMarcaByTipoVehiculo(idTipovehiuclo: number){
@@ -57,4 +55,37 @@ export class GarajeService {
   getModeloByMarca(idMarca : number){
     return this.client.get(`${this.primourl.PR_APIBASE_URL}modelo/${idMarca}`);
   }
+
+  postVehiculo(vehiculo :Vehiculo){
+    return this.client.post(`${this.primourl.PR_APIBASE_URL}vehiculo`,vehiculo).pipe(
+      catchError(err => {
+        let errorMsg: string;
+        if (err.error instanceof ErrorEvent) {
+            errorMsg = `Error: ${err.error.message}`;
+        } else {
+            errorMsg = this.getServerErrorMessage(err);
+        }
+        return throwError([err.error,errorMsg]);
+      })
+    );
+  }
+
+
+  private getServerErrorMessage(error: HttpErrorResponse): string {
+    switch (error.status) {
+        case 404: {
+            return `Not Found: ${error.message}`;
+        }
+        case 403: {
+            return `Access Denied: ${error.message}`;
+        }
+        case 500: {
+            return `Internal Server Error: ${error.message}`;
+        }
+        default: {
+            return `Unknown Server Error: ${error.message}`;
+        }
+
+    }
+}
 }

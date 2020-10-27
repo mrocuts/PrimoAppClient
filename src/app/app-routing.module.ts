@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
   },
   {
-    path: 'new-car',
+    path: 'new-car/:idGaraje',
     loadChildren: () => import('./garage/car/new-car/new-car.module').then( m => m.NewCarPageModule)
   },
   {

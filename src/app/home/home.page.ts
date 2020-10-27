@@ -26,6 +26,7 @@ export class HomePage {
   @ViewChild('passwordItem') passwordItem;
 
   user: User;
+  idGaraje : number;
 
   /**
    * Metodo Constructor
@@ -92,13 +93,14 @@ export class HomePage {
   /**
    * Método que se encarga de colocar el usuario en sesión
    */
-  private doLogin(){
+    private doLogin(){
     this.returnToNormality();
     if(!this.session.user_in_session){
       this.alert.putMsgError("El usuario y/o contraseña no son válidos. Verifique e intente nuevamente");
     }
     else{
-      this.router.navigate(['/dashboard']);
+      this.getValidaGarajeUsuario(this.session.user_in_session.idUsuario);
+      // this.router.navigate([`/dashboard/`]);
     }
   }
 
@@ -112,19 +114,25 @@ export class HomePage {
     this.passwordItem.color="ligth";
   }
 
-  getGarajeUsuario(){
-    this.garajeService.getGarajeUsuario(3).subscribe(data => {
-      console.log(data);
+  getValidaGarajeUsuario(idUsuario : number){
+    this.garajeService.getGarajeUsuario(idUsuario).subscribe(data => {
+        this.idGaraje = data['idGaraje'];
+        console.log('Esto retorno Garajeusuario en  el home');
+        this.router.navigate([`/new-car/${this.idGaraje}`]);
     },
     err => console.log(err));
   }
 
-  getVehiculo(){
-    this.garajeService.getVehiculo(1).subscribe(data => {
-      console.log(data);
-    },
-    err => console.log('Se presento un error',err),
-    () => console.log('Esta vacio'))
-  }
+  // getValidaTieneVehiculo(idGaraje : number):number{
+  //  let resultado : number = 0;
+  //  this.garajeService.getVehiculo(idGaraje).subscribe(data => {
+  //     resultado = data['idVehiculo'];
+  //   },
+  //   err => {
+  //     console.log('Se presento un error',err);
+  //   });
+  //   console.log(`el id vehiculo va ser ${resultado}`);
+  //   return resultado;
+  // }
 
 }

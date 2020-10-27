@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { Vehiculo } from 'src/app/models/vehiculo';
+import { GarajeService } from 'src/app/services/garaje/garaje.service';
 import { ModalCar1Component } from '../components/modal-car1/modal-car1.component';
 import { ModalCar2Component } from '../components/modal-car2/modal-car2.component';
 import { ModalCar3Component } from '../components/modal-car3/modal-car3.component';
@@ -12,11 +14,13 @@ import { ModalCar3Component } from '../components/modal-car3/modal-car3.componen
 })
 export class NewCarPage implements OnInit {
 
+  idGaraje : number = this.activatedRoute.snapshot.params.idGaraje;
+
   _car : Vehiculo = new Vehiculo(
    null,
     null,
      null,
-     null,
+     this.idGaraje,
     null,
     null,
     null,
@@ -30,10 +34,16 @@ export class NewCarPage implements OnInit {
     null );
   _tipoVehiculo :string;
 
-  constructor(private modalCtrl : ModalController) { }
+
+
+  constructor(private modalCtrl : ModalController,
+              private garajeService : GarajeService,
+              private activatedRoute : ActivatedRoute) { }
 
   ngOnInit() {
   }
+
+  
 
   // newCar(){
   //   this.modalCtrl.create({
@@ -71,7 +81,7 @@ export class NewCarPage implements OnInit {
                             if(dataModal3.role === "sucess"){
                               this._car.strColor = dataModal3.data["color"];
                               this._car.intPuertas = dataModal3.data["nropuertas"];
-                              this._car.intanio = dataModal3.data["annio"];
+                              this._car.intAnio = dataModal3.data["annio"];
                               this._car.strPlaca = dataModal3.data["placa"];
                             }
                           })
@@ -87,5 +97,11 @@ export class NewCarPage implements OnInit {
       m.present();
       return m.onDidDismiss();
     });
+  }
+
+  saveCar(){
+    console.log(this._car);
+    
+    this.garajeService.postVehiculo(this._car).subscribe(data => console.log(data), err => console.log(err));
   }
 }
