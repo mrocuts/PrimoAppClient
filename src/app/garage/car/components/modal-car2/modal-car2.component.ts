@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Marca } from 'src/app/models/marca';
+import { Modelo } from 'src/app/models/modelo';
 import { GarajeService } from 'src/app/services/garaje/garaje.service';
 
 @Component({
@@ -11,12 +13,14 @@ export class ModalCar2Component implements OnInit {
 
   @Input() idTipoVehiculo : number;
 
+
   IdMarca : number;
   IdModelo : number;
   Transmision : string;
+  annio : number;
 
-  dataLoading : any[] = [];
-  dataModelos : any[] = [];
+  dataMarcas : Marca[] = [];
+  dataModelos : Modelo[] = [];
   disabledModelo : boolean = true;
   marcaSelect :boolean = false;
   modeloSelect :boolean = false;
@@ -27,8 +31,8 @@ export class ModalCar2Component implements OnInit {
 
   ngOnInit() {
     this.garajeService.getMarcaByTipoVehiculo(this.idTipoVehiculo)
-    .subscribe((data: any[]) => {
-      this.dataLoading = data.slice();
+    .subscribe((data: Marca[]) => {
+      this.dataMarcas = data.slice();
     }, err => console.log(err)
     );
   }
@@ -38,13 +42,12 @@ export class ModalCar2Component implements OnInit {
   }
 
   getValue($event){
-    console.log($event.target.name);
     if($event.target.name == "sltMarca") {
-      console.log('entra1');
+      console.log($event.target);
       this.marcaSelect = true;
       this.IdMarca = $event.target.value;
       this.garajeService.getModeloByMarca(this.IdMarca)
-      .subscribe((data: any[]) => {
+      .subscribe((data: Modelo[]) => {
         this.dataModelos = data.slice();
         this.disabledModelo =  false;
       });
@@ -60,8 +63,19 @@ export class ModalCar2Component implements OnInit {
     if($event.target.name == "sltTransmision"){
       console.log('entra3');
       this.Transmision = $event.target.value;
-      this.modalCtrl.dismiss({IdMarca : this.IdMarca, IdModelo : this.IdModelo, Transmision : this.Transmision},'sucess');
+      return;
     }
+  }
+  
+  continuaRegistro(){
+    this.modalCtrl.dismiss({  
+      IdMarca : this.IdMarca,
+      Marca : this.dataMarcas.find(marca => marca.idMarca = this.IdMarca).strDescripcion,
+      IdModelo : this.IdModelo, 
+      Modelo : this.dataModelos.find(modelo => modelo.idModelo = this.IdModelo).strDescripcion,
+      Transmision : this.Transmision,
+      Annio : this.annio
+    },'sucess');
   }
 
   

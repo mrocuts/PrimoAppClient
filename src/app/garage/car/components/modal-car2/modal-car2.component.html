@@ -26,7 +26,9 @@
             Marca
           </ion-label>
           <ion-select name="sltMarca" (ionChange)="getValue($event)">
-              <ion-select-option *ngFor="let opcion of dataLoading" [value] = "opcion.idMarca">{{opcion.strDescripcion}}</ion-select-option>
+              <ion-select-option *ngFor="let marca of dataMarcas" [value] = "marca.idMarca">
+                {{marca.strDescripcion}}
+              </ion-select-option>
           </ion-select>
         </ion-item>
       </ion-list>
@@ -61,4 +63,17 @@
       </ion-item>
     </ion-card-content>
   </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          Año
+        </ion-label>
+        <ion-input type="text" [(ngModel)] ="annio"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <div class="ion-text-center">
+    <ion-button color="primary" (click)="continuaRegistro()">Siguiente</ion-button>
+  </div>
 </ion-content>

@@ -15,7 +15,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-button color="primary" (click)="newCar()">Iniciar Registro</ion-button>
+        <ion-button color="primary" (click)="nuevoVehiculo()">Iniciar Registro</ion-button>
       </ion-col>
     </ion-row>
     <ion-row class="ion-padding">
@@ -23,36 +23,40 @@
         <ion-list>
           <ion-item>
             <ion-label>Tipo Vehiculo :</ion-label>
-            <ion-text>{{ _tipoVehiculo }}</ion-text>
+            <ion-text>{{ _tipoVehiculo.strDescripcion }}</ion-text>
             <!-- <ion-input type="text">{{ _tipoVehiculo }}</ion-input> -->
           </ion-item>
           <ion-item>
             <ion-label>Marca :</ion-label>
-            <ion-text>{{ _car.idModelo }}</ion-text>
+            <ion-text>{{ _marca.strDescripcion }}</ion-text>
           </ion-item>
           <ion-item>
             <ion-label>Modelo :</ion-label>
-            <ion-text>{{ _car.idModelo }}</ion-text>
+            <ion-text>{{ _modelo.strDescripcion }}</ion-text>
           </ion-item>
           <ion-item>
             <ion-label>Color :</ion-label>
-            <ion-text>{{ _car.strColor }}</ion-text>
+            <ion-text>{{ _vehiculo.strColor }}</ion-text>
           </ion-item>
           <ion-item>
             <ion-label># Puertas :</ion-label>
-            <ion-text>{{ _car.intPuertas }}</ion-text>
+            <ion-text>{{ _vehiculo.intPuertas }}</ion-text>
           </ion-item>
           <ion-item>
             <ion-label>Transmision:</ion-label>
-            <ion-text>{{ _car.strTransmision }}</ion-text>
+            <ion-text>{{ _vehiculo.strTransmision }}</ion-text>
           </ion-item>
           <ion-item>
             <ion-label>Año :</ion-label>
-            <ion-text>{{ _car.intanio }}</ion-text>
+            <ion-text>{{ _vehiculo.intAnio }}</ion-text>
           </ion-item>
           <ion-item>
             <ion-label>Placa :</ion-label>
-            <ion-text>{{ _car.strPlaca }}</ion-text>
+            <ion-text>{{ _vehiculo.strPlaca }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>Observaciones :</ion-label>
+            <ion-text>{{ _vehiculo.strObservacion }}</ion-text>
           </ion-item>
         </ion-list>
       </ion-col>
@@ -60,6 +64,6 @@
   </ion-grid>
   </div>
   <div class="ion-text-center">
-    <ion-button color="primary" (click)="saveCar()">Finalizar</ion-button>
+    <ion-button color="primary" (click)="guardarVehiculo()">Finalizar</ion-button>
   </div>
 </ion-content>

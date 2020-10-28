@@ -10,12 +10,12 @@ export class ModalCar3Component implements OnInit {
 
   constructor(private modalCtrl : ModalController) { }
 
-  colores : Array<string>=['#EF280F','#6DC36D','#109DFA','#000000','#FFFFFF'];
+  colores : Array<string>=['Rojo','Azul','Verde','Blanco','Gris','Negro','Amarillo'];
 
   color : string;
   nroPuertas : number;
-  annio : number;
   placa : string;
+  observaciones : string;
 
   ngOnInit() {}
 
@@ -24,8 +24,12 @@ export class ModalCar3Component implements OnInit {
   }
 
   terminarRegistro(){
-    console.log(this.annio);
-    this.modalCtrl.dismiss({color : this.color, nropuertas : this.nroPuertas, annio : this.annio, placa : this.placa},'sucess');
+    this.modalCtrl.dismiss({
+      color : this.color, 
+      nropuertas : this.nroPuertas, 
+      placa : this.placa,
+      observacion : this.observaciones
+    },'sucess');
   }
 
   getValue($event){

@@ -1,8 +1,8 @@
+import { Marca } from './marca';
+
 export class Modelo {
-    constructor(
-        public idModelo : number,
-        public idMarca : number,
-        public strDescripcion : string,
-        public bitActivo : number
-    ){}
+        public idModelo? : number;
+        public bitActivo? : number;
+        public strDescripcion? : string;
+        public myMarca? : Marca;
 }

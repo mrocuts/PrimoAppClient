@@ -115,24 +115,18 @@ export class HomePage {
   }
 
   getValidaGarajeUsuario(idUsuario : number){
-    this.garajeService.getGarajeUsuario(idUsuario).subscribe(data => {
-        this.idGaraje = data['idGaraje'];
-        console.log('Esto retorno Garajeusuario en  el home');
-        this.router.navigate([`/new-car/${this.idGaraje}`]);
+    this.garajeService.getGaraje(idUsuario).subscribe(data => {
+      console.log(data);
+      this.idGaraje = data['idGaraje'];
+      this.garajeService.getVehiculo(this.idGaraje).subscribe(data => {
+        console.log(data);
+        if(!data){
+          this.router.navigate([`/new-car/${this.idGaraje}`]);
+          return;
+        }
+        this.router.navigate(['/dashboard']);
+      });
     },
-    err => console.log(err));
+      err => console.log(err));
   }
-
-  // getValidaTieneVehiculo(idGaraje : number):number{
-  //  let resultado : number = 0;
-  //  this.garajeService.getVehiculo(idGaraje).subscribe(data => {
-  //     resultado = data['idVehiculo'];
-  //   },
-  //   err => {
-  //     console.log('Se presento un error',err);
-  //   });
-  //   console.log(`el id vehiculo va ser ${resultado}`);
-  //   return resultado;
-  // }
-
 }

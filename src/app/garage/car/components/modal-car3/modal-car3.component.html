@@ -53,20 +53,18 @@
     <ion-card-content>
       <ion-item>
         <ion-label>
-          Año
-        </ion-label>
-        <ion-input type="text" [(ngModel)] ="annio"></ion-input>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-  <ion-card>
-    <ion-card-content>
-      <ion-item>
-        <ion-label>
           Placa
         </ion-label>
         <ion-input type="text" [(ngModel)] = "placa"></ion-input>
       </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Observaciones</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-textarea [(ngModel)] = "observaciones"></ion-textarea>
     </ion-card-content>
   </ion-card>
   <ion-button color="primary" (click)="terminarRegistro()">Terminar</ion-button>
