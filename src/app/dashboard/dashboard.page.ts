@@ -30,8 +30,6 @@ export class DashboardPage implements OnInit,AfterViewInit {
     }
   };
 
-  map : any;
- 
   @ViewChild('map',{read:ElementRef,static:false})mapRef :ElementRef;
 
   constructor(private geolocation : Geolocation,
@@ -39,27 +37,33 @@ export class DashboardPage implements OnInit,AfterViewInit {
               private alert : UIAlertService) { }
 
   ngOnInit() {
+    //En IOS evita volver a la página anterior con el gesto de izquierda a derecha
     this.routerOutlet.swipeGesture=false;
   }
 
   ngAfterViewInit(){
-    console.log('ngAfterViewInit');
+    //console.log('ngAfterViewInit');
     this.geolocation.getCurrentPosition().then((resp)=>{
       console.log(`${resp.coords.latitude} , ${resp.coords.longitude}`);
       this.myPosition.position.lat = resp.coords.latitude;
       this.myPosition.position.lng = resp.coords.longitude; 
       this.myPosition.title = "home";
       console.log(this.myPosition);
-      this.loadMap2();
+      this.loadMap();
     }).catch((erro)=> {
       console.log('error getting location',erro);
     });
-    
   }
 
+  ionViewDidEnter(){
+    // console.log('ionViewDidEnter');
+  }
+
+  // Metodo que retorna la variable con el modulo de la api de google con la que se manejan los mapas
   private getGoogleMaps() : Promise<any>{
     const win = window as any;
     const googleModule = win.google;
+    //valida si el modulo de google ya esta cargado o retorna uno nuevo
     if (googleModule && googleModule.maps) {
       return Promise.resolve(googleModule.maps);
     }
@@ -80,7 +84,8 @@ export class DashboardPage implements OnInit,AfterViewInit {
     });
   }
   
-  loadMap2(){
+  //Metodo que carga el mapa
+  loadMap(){
     this.getGoogleMaps().then(googleMaps => {
       const mapEl  = this.mapRef.nativeElement;
       const location = new googleMaps.LatLng(this.myPosition.position);
@@ -98,35 +103,7 @@ export class DashboardPage implements OnInit,AfterViewInit {
     })
   }
 
-  ionViewDidEnter(){
-    console.log('ionViewDidEnter');
-    this.geolocation.getCurrentPosition().then((resp)=>{
-      console.log(`${resp.coords.latitude} , ${resp.coords.longitude}`);
-      this.myPosition.position.lat = resp.coords.latitude;
-      this.myPosition.position.lng = resp.coords.longitude; 
-      this.myPosition.title = "home";
-      console.log(this.myPosition);
-      
-      //this.loadMap2();
-    }).catch((erro)=> {
-      console.log('error getting location',erro);
-    });
-  }
-
-  loadMap(){
-    const location = new google.maps.LatLng(this.myPosition.position);
-    const options = {
-      center: location,
-      zoom : 15,
-      disableDefaultUI : true
-    }
-    this.map = new google.maps.Map(this.mapRef.nativeElement, options);
-    google.maps.event.addListenerOnce(this.map, 'idle', () => {
-      //this.addMarker(this.myPosition);
-
-    })
-  }
-
+  //Metodo que crea y agrega los marcadores al mapa
   addMarker(marker : Marker, googleMaps : any, map : any) {
     return new googleMaps.Marker({
       position : marker.position,
