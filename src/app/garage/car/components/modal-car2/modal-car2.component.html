@@ -18,11 +18,11 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-card [color]="marcaSelect? 'primary': ''">
+  <ion-card>
     <ion-card-content>
       <ion-list>
-        <ion-item [ngStyle]="{'backgroud-color': marcaSelect ? 'blue': 'white'}">
-          <ion-label>
+        <ion-item>
+          <ion-label position="floating">
             Marca
           </ion-label>
           <ion-select name="sltMarca" (ionChange)="getValue($event)">
@@ -38,7 +38,7 @@
     <ion-card-content>
       <ion-list>
         <ion-item [ngStyle]="{'backgroud-color': marcaSelect === true ? 'blue': 'white'}">
-          <ion-label>
+          <ion-label position="floating">
             Modelo
           </ion-label>
           <ion-select [disabled]="disabledModelo" name="sltModelo" (ionChange)="getValue($event)">
@@ -53,7 +53,7 @@
   <ion-card>
     <ion-card-content>
       <ion-item>
-        <ion-label>
+        <ion-label position="floating">
           Transmision
         </ion-label>
         <ion-select name="sltTransmision" (ionChange)="getValue($event)">
@@ -66,7 +66,7 @@
   <ion-card>
     <ion-card-content>
       <ion-item>
-        <ion-label>
+        <ion-label position="floating">
           Año
         </ion-label>
         <ion-input type="text" [(ngModel)] ="annio"></ion-input>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { Vehiculo } from 'src/app/models/vehiculo';
 import { TipoVehiculo } from '../../../models/tipoVehiculo';
 import { GarajeService } from 'src/app/services/garaje/garaje.service';
@@ -20,6 +20,7 @@ import { Marca } from 'src/app/models/marca';
 export class NewCarPage implements OnInit {
 
   idGaraje : number = this.activatedRoute.snapshot.params.idGaraje;
+  disabledFinalizar = true;
 
   _vehiculo : Vehiculo = new Vehiculo;
   _tipoVehiculo : TipoVehiculo = new TipoVehiculo;
@@ -31,21 +32,13 @@ export class NewCarPage implements OnInit {
               private garajeService : GarajeService,
               private activatedRoute : ActivatedRoute,
               private alert :UIAlertService,
-              private router : Router) { }
+              private router : Router,
+              private loadingCtrl : LoadingController) { }
 
   ngOnInit() {
-    this._tipoVehiculo = {
-      // idTipoVehiculo : null, 
-      // strDescripcion :null
-    };
+
     this._garaje = { 
       idGaraje : this.idGaraje
-     };
-     this._modelo = {
-      //  idModelo : null,
-      //  strDescripcion : null,
-      //  bitActivo : null,
-      //  myMarca : {}
      };
      this._marca = {};
      this._vehiculo.strMotor = "";
@@ -82,6 +75,8 @@ export class NewCarPage implements OnInit {
               this._vehiculo.intPuertas = dataModal3.data["nropuertas"];
               this._vehiculo.strPlaca = dataModal3.data["placa"];
               this._vehiculo.strObservacion = dataModal3.data["observacion"];
+              this.disabledFinalizar = false;
+              console.log(this.disabledFinalizar);
             }
           })
         })
@@ -98,26 +93,38 @@ export class NewCarPage implements OnInit {
     });
   }
 
-  guardarVehiculo(){
-    console.log(this._vehiculo);
+  async guardarVehiculo(){
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...',
+      duration: 2000
+    });
+    await loading.present();
+
     this._vehiculo.myTipoVehiculo = this._tipoVehiculo;
     this._vehiculo.myGaraje = this._garaje;
     this._modelo.myMarca = this._marca;
     this._vehiculo.myModelo = this._modelo;
-    this.garajeService.postVehiculo(this._vehiculo).subscribe(result => {
-      console.log(result);
-      if(!result['sucess']){
-        this.alert.putMsgError(result['response'] );
-        return;   
-      }
-    }, 
-    err =>  {
-      this.alert.putMsgError(err.response);
-      return;
-    },
-    () => { 
-      this.alert.putMsgInfo('El vehiculo se creo con exito!');
-      this.router.navigate(['/dashboard']); 
-    });
+    if(this._vehiculo.myTipoVehiculo !== null && this._vehiculo.myTipoVehiculo !== '' && this._vehiculo.intAnio > 0) {
+      this.garajeService.postVehiculo(this._vehiculo).subscribe(result => {
+        console.log(result);
+        if(!result['sucess']){
+          this.alert.putMsgError(result['response'] );
+          return;   
+        }
+      }, 
+      err =>  {
+        this.alert.putMsgError(err.response);
+        return;
+      },
+      () => { 
+        loading.dismiss();
+        this.alert.putMsgInfo('El vehiculo se creo con exito!');
+        this.router.navigate(['/dashboard']); 
+      });
+    } else {
+      loading.dismiss();
+      this.alert.putMsgInfo("Faltan datos");
+    }
+
   }
 }

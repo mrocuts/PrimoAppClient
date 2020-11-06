@@ -22,8 +22,9 @@ export class ModalCar2Component implements OnInit {
   dataMarcas : Marca[] = [];
   dataModelos : Modelo[] = [];
   disabledModelo : boolean = true;
-  marcaSelect :boolean = false;
+
   modeloSelect :boolean = false;
+  marcaSelect  : boolean = true;
 
 
   constructor(private modalCtrl : ModalController,
@@ -43,7 +44,6 @@ export class ModalCar2Component implements OnInit {
 
   getValue($event){
     if($event.target.name == "sltMarca") {
-      console.log($event.target);
       this.marcaSelect = true;
       this.IdMarca = $event.target.value;
       this.garajeService.getModeloByMarca(this.IdMarca)
@@ -54,14 +54,12 @@ export class ModalCar2Component implements OnInit {
       return;
     }
     if($event.target.name == "sltModelo"){
-      console.log('entra2');
       this.modeloSelect = true;
       this.IdModelo = $event.target.value;
       return;
     }
 
     if($event.target.name == "sltTransmision"){
-      console.log('entra3');
       this.Transmision = $event.target.value;
       return;
     }

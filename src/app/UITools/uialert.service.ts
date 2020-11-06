@@ -45,9 +45,9 @@ export class UIAlertService {
       animated:true,
       header: 'Error',
       message: message,
-      duration: 2000,
+      duration: 3000,
       position:"top",
-      color:"warning"
+      color:"danger"
     })
     await toast.present();
   }

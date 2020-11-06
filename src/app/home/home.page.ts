@@ -8,6 +8,8 @@ import { UserService } from '../services/user/user.service';
 import { User } from '../models/user';
 import { GarajeService } from '../services/garaje/garaje.service';
 import { SessionManagerService } from '../services/user/session-manager.service';
+import { Vehiculo } from '../models/vehiculo';
+import { LoadingController, MenuController } from '@ionic/angular';
 
 /**
  * Esta clase maneja todos los eventos de la pagina de Login
@@ -27,6 +29,7 @@ export class HomePage {
 
   user: User;
   idGaraje : number;
+  vehiculosUsuario : Vehiculo[] = []; 
 
   /**
    * Metodo Constructor
@@ -36,9 +39,16 @@ export class HomePage {
   constructor(public alert : UIAlertService,
               public router: Router,
               public userService: UserService,
-              public garajeService : GarajeService,
-              public session : SessionManagerService) {}
-            
+              private garajeService : GarajeService,
+              public session : SessionManagerService,
+              private loadingCtrl : LoadingController,
+              private menuCtrl : MenuController) {}
+  
+              
+  ionViewWillEnter(){
+    this.menuCtrl.enable(false);
+  }
+
   /**
    * Método que valida el campo de Nombre de Usuario
    * @param username 
@@ -114,19 +124,49 @@ export class HomePage {
     this.passwordItem.color="ligth";
   }
 
-  getValidaGarajeUsuario(idUsuario : number){
+  async getValidaGarajeUsuario(idUsuario : number){
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...',
+      duration: 2000
+    });
+    await loading.present();
+
     this.garajeService.getGaraje(idUsuario).subscribe(data => {
-      console.log(data);
+      if(data === null){
+        this.alert.putMsgError("No se encontro información de su garaje por favor contacte al administrador.");
+        return;
+      } 
       this.idGaraje = data['idGaraje'];
-      this.garajeService.getVehiculo(this.idGaraje).subscribe(data => {
-        console.log(data);
-        if(!data){
+      this.ValidaSiExistenVehiculos(this.idGaraje || 0).then(resul => {
+        this.vehiculosUsuario = resul;
+        loading.dismiss();
+        if(this.vehiculosUsuario.length === 0){
+          console.log('mando la pagina de creacion de carro');
           this.router.navigate([`/new-car/${this.idGaraje}`]);
-          return;
+          return;  
         }
+        console.log('mando la pagina principal');
         this.router.navigate(['/dashboard']);
+        return;
       });
+
+
+      // this.garajeService.getVehiculo(this.idGaraje).subscribe(data => {
+      //   console.log(data);
+      //   if(data){
+      //    
+      //   }
+      //   
+      // });
     },
-      err => console.log(err));
+      err => {
+        console.log(err);
+        this.alert.putMsgError(err[1]);
+      });
+  }
+
+async ValidaSiExistenVehiculos(idGaraje : number) {
+  const vehiculos$ = this.garajeService.getVehiculo(idGaraje);
+  return await vehiculos$.toPromise();
   }
 }
