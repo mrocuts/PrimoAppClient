@@ -78,7 +78,9 @@ export class RegisterPage implements OnInit {
 
     this.userService.newUser(this.newUser).subscribe(data => {
       if(!data['succes']){
-        this.alert.putMsgError( data['response']);
+
+        this.alert.putMsgError( data['response'] );
+
       return;  
       }
     },

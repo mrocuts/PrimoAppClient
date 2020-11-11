@@ -41,8 +41,8 @@ export class UserService {
     URL=URL.replace('username', username);
     URL=URL.replace('password', password);
     URL=URL.replace('usrtype', ''+this.constants.USER_PUBLIC);
-    alert(URL);
-    console.log("URL WS: "+URL);
+    //alert(URL);
+    //console.log("URL WS: "+URL);
     return this.client.get<User>(URL);
   }
 

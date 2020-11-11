@@ -1,0 +1,44 @@
+.login-content-logo {
+    width:100%;
+    height: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .login-logo {
+        width: 70%;
+    }
+}
+
+.login-content-logo div {
+    display: block;
+    text-align: center;
+    text-align: -webkit-center;
+}
+
+.login-content-main {
+    width:100%;
+    height: 20%;
+    .login-button {
+        padding-bottom : 20px;
+    }
+    .list-md {
+        padding: 0;
+    }
+}
+
+.login-content-links {
+    width:100%;
+    height: 35%;
+    background-color: whitesmoke;
+    text-align: center;
+    padding: 40px 10px 0 10px;
+}
+
+.login-content-links a {
+    font-style: italic;
+    font-size: small;
+}
+
+.login-content-links p {
+    padding: 5px 0px;
+}

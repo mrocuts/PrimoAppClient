@@ -6,7 +6,10 @@ import { Router } from '@angular/router';
 import { UIAlertService } from '../UITools/uialert.service';
 import { UserService } from '../services/user/user.service';
 import { User } from '../models/user';
+import { GarajeService } from '../services/garaje/garaje.service';
 import { SessionManagerService } from '../services/user/session-manager.service';
+import { Vehiculo } from '../models/vehiculo';
+import { LoadingController, MenuController } from '@ionic/angular';
 
 /**
  * Esta clase maneja todos los eventos de la pagina de Login
@@ -25,6 +28,8 @@ export class HomePage {
   @ViewChild('passwordItem') passwordItem;
 
   user: User;
+  idGaraje : number;
+  vehiculosUsuario : Vehiculo[] = []; 
 
   /**
    * Metodo Constructor
@@ -34,8 +39,16 @@ export class HomePage {
   constructor(public alert : UIAlertService,
               public router: Router,
               public userService: UserService,
-              public session : SessionManagerService) {}
-            
+              private garajeService : GarajeService,
+              public session : SessionManagerService,
+              private loadingCtrl : LoadingController,
+              private menuCtrl : MenuController) {}
+  
+              
+  ionViewWillEnter(){
+    //this.menuCtrl.enable(false);
+  }
+
   /**
    * Método que valida el campo de Nombre de Usuario
    * @param username 
@@ -78,26 +91,33 @@ export class HomePage {
    * @param username 
    * @param password 
    */
-  login(username : string, password : string){
-    if(this.validateUsername(username) && this.validatePassword(password)){
-      this.userService.getUser(username, password).subscribe(data=>{
-        this.session.user_in_session=data;
-        this.doLogin();
-      });
-    }
+login(username : string, password : string){
+   
+      if(this.validateUsername(username) && this.validatePassword(password)){
+        this.userService.getUser(username, password).subscribe(data=>{
+          this.session.user_in_session=data;
+          this.doLogin();
+        });
+      }
   }
 
   /**
    * Método que se encarga de colocar el usuario en sesión
    */
-  private doLogin(){
+    private async doLogin(){
     this.returnToNormality();
+    const loadingWindow  = await this.loadingCtrl.create({
+      message:'Por favor espere...',
+    });
+    loadingWindow.present();
     if(!this.session.user_in_session){
       this.alert.putMsgError("El usuario y/o contraseña no son válidos. Verifique e intente nuevamente");
     }
     else{
-      this.router.navigate(['/dashboard']);
+      this.getValidaGarajeUsuario(this.session.user_in_session.idUsuario);
+      // this.router.navigate([`/dashboard/`]);
     }
+    loadingWindow.dismiss();
   }
 
   /**
@@ -108,5 +128,36 @@ export class HomePage {
     this.passwordInput.value="";
     this.usernameItem.color="ligth";
     this.passwordItem.color="ligth";
+  }
+
+  getValidaGarajeUsuario(idUsuario : number){
+    this.garajeService.getGaraje(idUsuario).subscribe(data => {
+      if(data === null){
+        this.alert.putMsgError("No se encontro información de su garaje por favor contacte al administrador.");
+        return;
+      } 
+      this.idGaraje = data['idGaraje'];
+      this.ValidaSiExistenVehiculos(this.idGaraje || 0).then(resul => {
+        this.vehiculosUsuario = resul;
+        if(this.vehiculosUsuario.length === 0){
+          console.log('mando la pagina de creacion de carro');
+          this.router.navigate([`/new-car/${this.idGaraje}`]);
+          return;  
+        }
+        console.log('mando la pagina principal');
+        this.session.idgaraje = this.idGaraje;
+        this.router.navigate(['/dashboard']);
+        return;
+      });
+    },
+      err => {
+        console.log(err);
+        this.alert.putMsgError(err[1]);
+      });
+  }
+
+async ValidaSiExistenVehiculos(idGaraje : number) {
+  const vehiculos$ = this.garajeService.getVehiculo(idGaraje);
+  return await vehiculos$.toPromise();
   }
 }
