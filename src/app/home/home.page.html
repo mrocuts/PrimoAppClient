@@ -1,19 +1,27 @@
 <ion-content [fullscreen]="true" color="primary">
-  <div class="img-container">
-    <img src="assets/img/logoprimoblack.png"/>
-    <p style="text-align: center;">El vinculo que nos une...</p>
+    <div class="login-content-logo">
+      <div>
+        <ion-img src="../../assets/img/logoprimoblack.png" class="login-logo"></ion-img>
+        <ion-text>
+          El vinculo que nos une...
+        </ion-text>
+      </div>
+    </div>
+  <div class="login-content-main">
+    <ion-list>
+      <ion-item #usernameItem color="primary">
+        <ion-label position="floating">Usuario</ion-label>
+        <ion-input #usernameInput type="text" #username (ionBlur)="validateUsername(username.value)"></ion-input>
+      </ion-item>
+      <ion-item #passwordItem color="primary">
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input #passwordInput type="password" #password></ion-input>
+      </ion-item>
+    </ion-list>
   </div>
-  <div id="container">
-    <ion-item #usernameItem color="ligth">
-      <ion-label position="floating">Usuario</ion-label>
-      <ion-input #usernameInput type="text" #username (ionBlur)="validateUsername(username.value)"></ion-input>
-    </ion-item>
-    <ion-item #passwordItem color="ligth">
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input #passwordInput type="password" #password></ion-input>
-    </ion-item>
+  <div class="login-content-links">
     <ion-button color="medium" expand="block" (click)="login(username.value, password.value)">INICIAR SESIÓN</ion-button>
-    <p><a routerLink="/register" color="medium" href="#" style="font-size: 10px; font:italic;">¿No tienes cuenta? Crea una ahora!</a></p>
-    <p><a routerLink color="medium" href="#" style="font-size: 10px; font:italic;">¿Haz olvidado tu contraseña?</a></p>
+    <p><a routerLink="/register" color="medium" href="#">¿No tienes cuenta? Crea una ahora!</a></p>
+    <p><a routerLink color="medium" href="#">¿Haz olvidado tu contraseña?</a></p>
   </div>
 </ion-content>

@@ -18,6 +18,8 @@ export class UIAlertService {
    */
   constructor(public toastController: ToastController) { }
 
+
+  
   /**
    * Construye y muestra un mensaje de alerta de tipo informativo.
    * @param message Mensaje a mostrar.
@@ -43,9 +45,9 @@ export class UIAlertService {
       animated:true,
       header: 'Error',
       message: message,
-      duration: 2000,
+      duration: 3000,
       position:"top",
-      color:"warning"
+      color:"danger"
     })
     await toast.present();
   }

@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Paso 2</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button color="primary" (click)="OnClose()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-text-center">
+      <ion-col size="12">
+        <ion-text color="primary">
+          <h1>¿Cuentanos más acerca de tu auto?</h1>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">
+            Marca
+          </ion-label>
+          <ion-select name="sltMarca" (ionChange)="getValue($event)">
+              <ion-select-option *ngFor="let marca of dataMarcas" [value] = "marca.idMarca">
+                {{marca.strDescripcion}}
+              </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item [ngStyle]="{'backgroud-color': marcaSelect === true ? 'blue': 'white'}">
+          <ion-label position="floating">
+            Modelo
+          </ion-label>
+          <ion-select [disabled]="disabledModelo" name="sltModelo" (ionChange)="getValue($event)">
+            <ion-select-option *ngFor="let modelo of dataModelos" [value] = "modelo.idModelo">
+              {{ modelo.strDescripcion }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">
+          Transmision
+        </ion-label>
+        <ion-select name="sltTransmision" (ionChange)="getValue($event)">
+          <ion-select-option value="Manual">Manual</ion-select-option>
+          <ion-select-option value="Automatica">Automatica</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">
+          Año
+        </ion-label>
+        <ion-input type="text" [(ngModel)] ="annio"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <div class="ion-text-center">
+    <ion-button color="primary" (click)="continuaRegistro()">Siguiente</ion-button>
+  </div>
+</ion-content>

@@ -3,10 +3,10 @@
  */
 export class User {
     /** Atributos de Clase **/
-    idUsuario:number;
-    strUsuario :string;
-    strPassword: string;
-    intNumIntentos:number;
-    bitActivo:number;
-    intTipoUsuario:number;
+    idUsuario?:number;
+    strUsuario? :string;
+    strPassword?: string;
+    intNumIntentos?:number;
+    bitActivo?:number;
+    intTipoUsuario?:number;
 }

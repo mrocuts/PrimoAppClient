@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nuevo Vehiculo</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="ion-text-center">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <p>Bienvenido a Primo la herramienta que te ayudara a administra y cuidar tus vehiculos.</p>
+        <p>¿Quiere iniciar registrando tu primer vehiculo?</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button color="medium" expand="block" fill="outline" (click)="nuevoVehiculo()">Iniciar Registro</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="">
+      <ion-col>
+        <ion-list>
+          <ion-item>
+            <ion-label>Tipo Vehiculo :</ion-label>
+            <ion-text>{{ _tipoVehiculo.strDescripcion }}</ion-text>
+            <!-- <ion-input type="text">{{ _tipoVehiculo }}</ion-input> -->
+          </ion-item>
+          <ion-item>
+            <ion-label>Marca :</ion-label>
+            <ion-text>{{ _marca.strDescripcion }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>Modelo :</ion-label>
+            <ion-text>{{ _modelo.strDescripcion }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>Color :</ion-label>
+            <ion-text>{{ _vehiculo.strColor }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label># Puertas :</ion-label>
+            <ion-text>{{ _vehiculo.intPuertas }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>Transmision:</ion-label>
+            <ion-text>{{ _vehiculo.strTransmision }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>Año :</ion-label>
+            <ion-text>{{ _vehiculo.intAnio }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>Placa :</ion-label>
+            <ion-text>{{ _vehiculo.strPlaca }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>Observaciones :</ion-label>
+            <ion-text>{{ _vehiculo.strObservacion }}</ion-text>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  </div>
+  <div class="ion-text-center">
+    <ion-button color="medium" (click)="guardarVehiculo()" [disabled]="disabledFinalizar">Finalizar</ion-button>
+  </div>
+</ion-content>

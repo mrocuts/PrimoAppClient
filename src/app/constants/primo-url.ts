@@ -7,13 +7,10 @@ export class PrimoURL {
      * La URL de acceso web al servidor de aplicaciones que tiene expuesto
      * cada uno de los servicios listados.
      */
-
+    private restServerAccess:string='http://35.202.38.48:8080/PrimoApp/';
     
     //private restServerAccess:string='http://localhost:8080/PrimoApp/';
-
-    private restServerAccess:string='http://192.168.1.101:8080/';
-
-
+    
     /**
      * URL de invocacion del servicio de login, reemplazar las palabras:
      * 1. username por el usuario ingresado por el usuario
@@ -22,8 +19,11 @@ export class PrimoURL {
      */ 
 
 
-    public PR_NEWUSER_URL : string = `${this.restServerAccess}PrimoApp/usuario`;
 
-    public PR_LOGIN_URL:string=this.restServerAccess+'PrimoApp/login/username/password/usrtype';
+    public PR_APIBASE_URL : string = `${this.restServerAccess}`;
+
+    public PR_NEWUSER_URL : string = `${this.restServerAccess}usuario`;
+
+    public PR_LOGIN_URL:string=this.restServerAccess+'login/username/password/usrtype';
 
 }
