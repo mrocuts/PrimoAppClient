@@ -15,8 +15,8 @@ export class Vehiculo {
     public strPathSOAT :string;
     public bitSubido : number;
     public strPlaca : string;
-    public myGaraje : Garaje;
+    public myGaraje? : Garaje;
     public myTipoVehiculo? : TipoVehiculo;
-    public myModelo : Modelo;
+    public myModelo? : Modelo;
 
 }

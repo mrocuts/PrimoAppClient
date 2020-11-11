@@ -14,6 +14,7 @@ export class SessionManagerService {
 
   /** Atributos de Clase **/
   user_in_session:User;
+  idgaraje : number;
 
   /**
    * Constructor Vacio

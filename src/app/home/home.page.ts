@@ -46,7 +46,7 @@ export class HomePage {
   
               
   ionViewWillEnter(){
-    this.menuCtrl.enable(false);
+    //this.menuCtrl.enable(false);
   }
 
   /**
@@ -91,20 +91,25 @@ export class HomePage {
    * @param username 
    * @param password 
    */
-  login(username : string, password : string){
-    if(this.validateUsername(username) && this.validatePassword(password)){
-      this.userService.getUser(username, password).subscribe(data=>{
-        this.session.user_in_session=data;
-        this.doLogin();
-      });
-    }
+login(username : string, password : string){
+   
+      if(this.validateUsername(username) && this.validatePassword(password)){
+        this.userService.getUser(username, password).subscribe(data=>{
+          this.session.user_in_session=data;
+          this.doLogin();
+        });
+      }
   }
 
   /**
    * Método que se encarga de colocar el usuario en sesión
    */
-    private doLogin(){
+    private async doLogin(){
     this.returnToNormality();
+    const loadingWindow  = await this.loadingCtrl.create({
+      message:'Por favor espere...',
+    });
+    loadingWindow.present();
     if(!this.session.user_in_session){
       this.alert.putMsgError("El usuario y/o contraseña no son válidos. Verifique e intente nuevamente");
     }
@@ -112,6 +117,7 @@ export class HomePage {
       this.getValidaGarajeUsuario(this.session.user_in_session.idUsuario);
       // this.router.navigate([`/dashboard/`]);
     }
+    loadingWindow.dismiss();
   }
 
   /**
@@ -124,13 +130,7 @@ export class HomePage {
     this.passwordItem.color="ligth";
   }
 
-  async getValidaGarajeUsuario(idUsuario : number){
-    const loading = await this.loadingCtrl.create({
-      message: 'Please wait...',
-      duration: 2000
-    });
-    await loading.present();
-
+  getValidaGarajeUsuario(idUsuario : number){
     this.garajeService.getGaraje(idUsuario).subscribe(data => {
       if(data === null){
         this.alert.putMsgError("No se encontro información de su garaje por favor contacte al administrador.");
@@ -139,25 +139,16 @@ export class HomePage {
       this.idGaraje = data['idGaraje'];
       this.ValidaSiExistenVehiculos(this.idGaraje || 0).then(resul => {
         this.vehiculosUsuario = resul;
-        loading.dismiss();
         if(this.vehiculosUsuario.length === 0){
           console.log('mando la pagina de creacion de carro');
           this.router.navigate([`/new-car/${this.idGaraje}`]);
           return;  
         }
         console.log('mando la pagina principal');
+        this.session.idgaraje = this.idGaraje;
         this.router.navigate(['/dashboard']);
         return;
       });
-
-
-      // this.garajeService.getVehiculo(this.idGaraje).subscribe(data => {
-      //   console.log(data);
-      //   if(data){
-      //    
-      //   }
-      //   
-      // });
     },
       err => {
         console.log(err);

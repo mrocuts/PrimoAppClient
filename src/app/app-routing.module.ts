@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { HomeGuard } from './guards/home.guard';
 
 const routes: Routes = [
   {
@@ -21,11 +22,17 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
+    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule),
+    canActivate: [HomeGuard]
   },
   {
     path: 'test',
     loadChildren: () => import('./test/test.module').then( m => m.TestPageModule)
+  },
+  {
+    path: 'garage',
+    loadChildren: () => import('./garage/garage.module').then( m => m.GaragePageModule),
+    canActivate: [HomeGuard]
   },
 ];
 

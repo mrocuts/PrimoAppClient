@@ -1,11 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { IonRouterOutlet } from '@ionic/angular';
+
 import { environment } from '../../environments/environment';
 import { UIAlertService } from '../UITools/uialert.service';
-
-
-declare var google : any;
 
 interface Marker {
   position : {

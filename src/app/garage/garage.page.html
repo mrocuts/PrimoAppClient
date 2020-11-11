@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mi Garaje</ion-title>
+    <ion-buttons>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-list>
+  <ion-item>
+    <ion-label>
+      <h5>Tipo vehiculo :</h5>
+      <p>{{ vehiucloTipo.strDescripcion || "" }}</p>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <h5>Marca :</h5>
+      <p>{{ vehiculoMarca.strDescripcion || ""}}</p>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <h5>Modelo :</h5>
+      <p>{{ vehiculoModelo.strDescripcion || ""}}</p>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <h5>Año :</h5>
+      <p>{{ vehiculoActivo.intAnio }}</p>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <h5>Transmisión :</h5>
+      <p>{{ vehiculoActivo.strTransmision }}</p>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <h5>Color :</h5>
+      <p>{{ vehiculoActivo.strColor }}</p>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <h5>Placa :</h5>
+      <p>{{ vehiculoActivo.strPlaca }}</p>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <h5>Observaciones :</h5>
+      <p>{{ vehiculoActivo.strObservacion }}</p>
+    </ion-label>
+  </ion-item>
+</ion-list>
+</ion-content>
