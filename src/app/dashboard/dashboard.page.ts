@@ -110,4 +110,6 @@ export class DashboardPage implements OnInit,AfterViewInit {
     });
   }
 
+  // QUE LE PASA A ESTO
+
 }
