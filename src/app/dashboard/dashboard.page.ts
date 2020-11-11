@@ -11,6 +11,7 @@ interface Marker {
     lng: number
   };
   title: string;
+
 }
 
 @Component({
@@ -26,9 +27,10 @@ export class DashboardPage implements OnInit,AfterViewInit {
       lat:0,
       lng:0
     }
+
   };
 
-  @ViewChild('map',{read:ElementRef,static:false})mapRef :ElementRef;
+  @ViewChild('map',{read:ElementRef,static:false}) mapRef : ElementRef;
 
   constructor(private geolocation : Geolocation,
               private routerOutlet : IonRouterOutlet,
@@ -40,7 +42,7 @@ export class DashboardPage implements OnInit,AfterViewInit {
   }
 
   ngAfterViewInit(){
-    //console.log('ngAfterViewInit');
+
     this.geolocation.getCurrentPosition().then((resp)=>{
       console.log(`${resp.coords.latitude} , ${resp.coords.longitude}`);
       this.myPosition.position.lat = resp.coords.latitude;
@@ -54,11 +56,11 @@ export class DashboardPage implements OnInit,AfterViewInit {
   }
 
   ionViewDidEnter(){
-    // console.log('ionViewDidEnter');
+
   }
 
-  // Metodo que retorna la variable con el modulo de la api de google con la que se manejan los mapas
-  private getGoogleMaps() : Promise<any>{
+  // Metodo que retorna la variable con el modulo de la api de google con la que se manejan los mapas john
+  private getGoogleMaps() : Promise<any> {
     const win = window as any;
     const googleModule = win.google;
     //valida si el modulo de google ya esta cargado o retorna uno nuevo
@@ -80,6 +82,7 @@ export class DashboardPage implements OnInit,AfterViewInit {
         }
       }
     });
+
   }
   
   //Metodo que carga el mapa
@@ -89,7 +92,7 @@ export class DashboardPage implements OnInit,AfterViewInit {
       const location = new googleMaps.LatLng(this.myPosition.position);
       const options = {
         center: location,
-        zoom : 15,
+        zoom : 14,
         disableDefaultUI : true
       }
       const map = new googleMaps.Map(mapEl,options);
@@ -108,6 +111,7 @@ export class DashboardPage implements OnInit,AfterViewInit {
       map: map,
       title : marker.title
     });
+    
   }
 
   // QUE LE PASA A ESTO
