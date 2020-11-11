@@ -19,6 +19,7 @@ export class PrimoURL {
      */ 
 
 
+
     public PR_APIBASE_URL : string = `${this.restServerAccess}`;
 
     public PR_NEWUSER_URL : string = `${this.restServerAccess}usuario`;
